@@ -1,0 +1,559 @@
+openapi: 3.0.0 #version of OAS
+info: # High Level information of API
+  title: Innovate bank demo # API title
+  description: Innovate bank API description
+  version: 1.0.0 #API version
+  contact:
+    name: Example Support
+    url: http://www.myapi.com/support
+    email: ernese@sg.ibm.com
+  license: #license info
+    name: GPLv3
+    url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
+    
+servers:
+  - url: 'https://test.myapi.com/api/v1.6'
+    description: Testing server
+  - url: 'https://devel.myapi.com/api/v1.6'
+    description: Development server
+paths:
+  '/accounts':
+    post:
+      tags:
+      - accounts
+      summary: Add a new account
+      description: Add a new account
+      operationId: createAccount
+      parameters:
+      - in: query
+        name: body
+        required: true
+        schema:
+          $ref: '#/components/schemas/Account'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+      - accounts
+      summary: Retrieve accounts
+      description: Add a new bills
+      operationId: getAccounts
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Account'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+      - accounts
+      summary: deleting an accounts
+      description: Add a new bills
+      operationId: deleteAccounts
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Account'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+      - accounts
+      summary: retrieve accounts
+      description: Add a new bills
+      operationId: updateAccounts
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Account'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      tags:
+      - accounts
+      summary: Retrieve accounts
+      description: Add a new bills
+      operationId: updateAccount
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Account'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  '/accounts/loan':
+    post:
+      tags:
+      - accounts
+      summary: Creating a new loan
+      description: Creating a new loan
+      operationId: createLoan
+      parameters:
+      - in: query
+        name: body
+        required: true
+        schema:
+          $ref: '#/components/schemas/Account'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  '/accounts/checking':
+    post:
+      tags:
+      - accounts
+      summary: Add a new checking
+      description: Add a new checking
+      operationId: createChecking
+      parameters:
+      - in: query
+        name: body
+        required: true
+        schema:
+          $ref: '#/components/schemas/Account'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  '/accounts/savings':
+    post:
+      tags:
+      - accounts
+      summary: Add a new saving
+      description: Add a new saving
+      operationId: createSavings
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Account'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  '/accounts/savings/{uuid}':
+    get:
+      tags:
+      - accounts
+      summary: Retrieve saving with uuid
+      description: Retrieve saving with uuid
+      operationId: getSaving
+      parameters:
+      - in: path
+        name: uuid
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Account'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  '/users':
+    post:
+      tags:
+      - users
+      summary: Add a new user
+      description: Add a new user
+      operationId: createUser
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      summary: List all the users
+      operationId: listUsers
+      tags:
+        - users
+      parameters:
+        - name: uuid
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: An paged array of users
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/User"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  '/users/authenticate':
+    put:
+      tags:
+      - users
+      summary: Add a new bills
+      description: Add a new bills
+      operationId: authenticateUser
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  '/bills':
+    post:
+      tags:
+      - bills
+      summary: Add a new bills
+      description: Add a new bills
+      operationId: createBills
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Bill'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+      - bills
+      summary: Add a new bills
+      description: Add a new bills
+      operationId: getBills
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Bill'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+      - bills
+      summary: Add a new bills
+      description: Add a new bills
+      operationId: deleteBills
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Bill'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  '/messages':
+    post:
+      tags:
+      - messages
+      summary: Add a new message
+      description: Add a new message
+      operationId: createMessage
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Bill'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  '/transactions':
+    post:
+      tags:
+      - transactions
+      summary: Add a new transaction
+      description: Add a new transactions
+      operationId: createTransactions
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Transaction'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+      - transactions
+      summary: Add a new transaction
+      description: Add a new transactions
+      operationId: getTransactions
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Transaction'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+      - transactions
+      summary: Add a new transaction
+      description: Add a new transactions
+      operationId: deleteTransactions
+      parameters:
+      - in: query
+        name: body
+        description: Employees object that needs to be added 
+        required: true
+        schema:
+          $ref: '#/components/schemas/Transaction'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components: # components definition
+  schemas:
+    Account: #Account Object
+      type: object
+      properties: #Object properties
+        uuid: 
+          type: string
+          description: UUID #type description
+        type: 
+          type: string #Data type
+          description: type #Data type description
+        currency: #Firstname attribute
+          type: string
+          description: currency #type description
+        balance:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int64
+      xml:
+        name: account #xml root element when returning xml
+    User: #User Object
+      type: object
+      properties: #Object properties
+        uuid: #Id attribute
+          type: string #Data type
+          description: type #Data type description
+        name: #Firstname attribute
+          type: string
+          description: UUID #type description
+        email: #Firstname attribute
+          type: string #Data type
+        phone: #Lastname attribute
+          type: string #Data type
+          description: type #Data type description
+        gender: #Lastname attribute
+          type: string #Data type
+        dob: #Firstname attribute
+          type: string #Data type
+        kid: #Lastname attribute
+          type: string #Data type
+          description: type #Data type description
+        password: #Lastname attribute
+          type: string
+      xml:
+        name: user #xml root element when returning xml
+    Bill: #Bill Object
+      type: object
+      properties: #Object properties
+        uuid: #Id attribute
+          type: string #Data type
+          description: type #Data type description
+        category: #Firstname attribute
+          type: string
+          description: UUID #type description
+        entity: #Lastname attribute
+          type: string #Data type
+          description: type #Data type description
+        account_no: #Firstname attribute
+          type: string #Data type
+          description: account_no #Data type description
+        amount: #Firstname attribute
+          type: integer
+          format: int64
+        currency: #Lastname attribute
+          type: string #Data type
+          description: type #Data type description
+        date: #Lastname attribute
+          type: string #Data type
+          description: type #Data type description
+      xml:
+        name: bill #xml root element when returning xml
+    Transaction: #Transaction Object
+      type: object
+      properties: #Object properties
+        uuid: #Id attribute
+          type: string #Data type
+          description: type #Data type description
+        amount: #Firstname attribute
+          type: integer
+          format: int64
+        currency: #Lastname attribute
+          type: string #Data type
+          description: type #Data type description
+        description: #Firstname attribute
+          type: string #Data type
+          description: type #Data type description
+        date: #Lastname attribute
+          type: string #Data type
+          description: type #Data type description
+        category: #Lastname attribute
+          type: string #Data type
+          description: type #Data type description
+      xml:
+        name: transaction #xml root element when returning xml
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
